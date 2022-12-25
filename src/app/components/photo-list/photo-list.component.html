@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="container">
+    <table *ngIf="photos?.length > 0" class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Content Title</th>
+          <th scope="col">Context Text</th>
+          <th scope="col">Image Path</th>
+          <th scope="col">Total Downloads Per Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          style="cursor: pointer"
+          *ngFor="
+            let photo of photos
+              | paginate
+                : {
+                    itemsPerPage: pagination.pageSize,
+                    currentPage: pagination.page,
+                    totalItems: pagination.count
+                  }
+          "
+          (click)="navigateToDetails(photo)"
+        >
+          <td>{{ photo?.id }}</td>
+          <td>{{ photo?.contentTitle }}</td>
+          <td>{{ photo?.contentText }}</td>
+          <td>{{ photo?.imagePath }}</td>
+          <td>{{ photo | downloadPerType : { field: "total" } }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div *ngIf="photos?.length > 0" class="col-md-6">
+        <pagination-controls
+          [responsive]="true"
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="onPageChange($event)"
+        ></pagination-controls>
+      </div>
+      <div *ngIf="photos?.length > 0" class="col-md-4">
+        Items Per Page :
+        <select
+          (change)="onPageSizeChange($event)"
+          [(ngModel)]="pagination.pageSize"
+        >
+          <option *ngFor="let size of pagination.pageSizes" [value]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

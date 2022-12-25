@@ -1,0 +1,48 @@
+<div class="row" [ngStyle]="{ 'font-size': fontSize + 'px' }">
+  <div class="col">
+    <h1 style="text-align: center">Header</h1>
+    <img width="200" height="200" [src]="image" />
+    <br />
+    <span style="text-align: center">
+      contentTitle: {{ photoItem.contentTitle }}
+    </span>
+    <br />
+    <span style="text-align: center"
+      >contentText: {{ photoItem.contentText }}</span
+    >
+    <div class="row">
+      <div class="col">
+        <button (click)="DownloadPdf(1, 'A4')">
+          <span>Download A4 PDF</span>
+        </button>
+        <br />
+        <span> {{ details["A4Pdf"] ?? 0 }} Download Times </span>
+      </div>
+      <div class="col">
+        <button (click)="DownloadPdf(2, 'MobilePdf')">
+          <span>Download Mobile PDF</span>
+        </button>
+        <br />
+        <span> {{ details["MobilePdf"] ?? 0 }} Download Times</span>
+      </div>
+      <div class="col">
+        <button (click)="DownloadPdf(3, 'MobilePng')">
+          <span>Download Mobile PNG</span>
+        </button>
+        <br />
+        <span> {{ details["JPG"] ?? 0 }} Download Times </span>
+      </div>
+    </div>
+
+    <div *ngIf="load" class="bouncing-loader">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+
+<h1 style="text-align: center">Footer</h1>
+<span>Change Font Size</span>
+<button (click)="toggle('inc')">Inc</button>
+<button (click)="toggle('dec')">Dec</button>
